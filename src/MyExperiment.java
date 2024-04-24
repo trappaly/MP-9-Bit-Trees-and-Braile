@@ -6,10 +6,13 @@ public class MyExperiment {
       BitTree tree = new BitTree (3);
       pen.println("before");
       tree.set("100000", "A");
-      pen.println("dump: ");
-      tree.dump(pen);
       pen.println("get   " + tree.get("100000"));
+      tree.get("100000");
 
+      //tree.dump(pen);
+      //pen.println("dump: ");
+      //tree.dump(pen);
+      //pen.println("get   " + tree.get("100000"));
       //pen.println("after");
      // pen.println("get   " + tree.get("100000"));
       //tree.dump(pen);

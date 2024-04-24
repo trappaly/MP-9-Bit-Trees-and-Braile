@@ -47,6 +47,7 @@ public class BitTree {
   public BitTreeNode setHelper (BitTreeNode node, String bits, int i, String value){
     BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
     if (bits.length() == i){
+      //System.out.println("leaf" + new BitTreeLeaf(value));
      return new BitTreeLeaf(value); 
     }
     else {
@@ -60,6 +61,7 @@ public class BitTree {
       innerNode.right = setHelper (innerNode.right, bits, i + 1, value);
     }
   }
+  //System.out.println("innerNode" + innerNode);
     return innerNode;
   }
 }
@@ -118,7 +120,7 @@ public class BitTree {
     if (bits.length() != 6){
       throw new Exception();
     }
-    return getHelper(root, bits, -1);
+    return getHelper(root, bits, 0);
    } // get (String)
 
   /**
