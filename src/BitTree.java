@@ -3,6 +3,9 @@ import java.io.PrintWriter;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+//import java.io.Reader;
 
 /**
  * A bit tree that makes a bit tree with n levels
@@ -48,18 +51,22 @@ public class BitTree {
     }
     else {
      if (bits.charAt(i) == '0'){
+      if (node == null){
       innerNode.left = setHelper (innerNode.left, bits, i + 1, value);
+      }
     }
-    else {
+    else if (bits.charAt(i) == '1') {
+      if (node == null){
       innerNode.right = setHelper (innerNode.right, bits, i + 1, value);
     }
+  }
     return innerNode;
   }
 }
 
 
    public void set (String bits, String value) throws Exception{
-    if (((!bits.contains("0")) || (!bits.contains("1"))) &&  bits.length() != size){
+  if (((!bits.contains("0")) || (!bits.contains("1"))) &&  bits.length() != size){
       throw new Exception();
     } // if
     setHelper (root, bits, 0, value);
@@ -67,13 +74,33 @@ public class BitTree {
 
 
    public String getHelper (BitTreeNode node, String bits, int i) throws Exception{
-    if (node != null) {
-    if (node.isLeaf()) {
-      BitTreeLeaf leaf = (BitTreeLeaf) node;
-      return leaf.value;
+    BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
+    BitTreeLeaf leaf = (BitTreeLeaf) node;
+    if (node == null) {
+      throw new Exception ("ran out of bits");
     }
     else {
-      BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
+      if (bits.length() == i){
+       return leaf.value;
+      }
+     else if (bits.charAt(i) == '0'){
+      return getHelper (innerNode.left, bits, i++);
+     }
+     else {
+      return getHelper (innerNode.right, bits, i++);
+     }
+    }
+  }
+
+
+
+   /*  BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
+    BitTreeLeaf leaf = (BitTreeLeaf) node;
+    if (node != null) {
+    if (bits.length() == i) {
+       return leaf.value;
+    }
+    else {
       i++;
     if (bits.charAt(i) == '0'){
       return getHelper (innerNode.left, bits, i);
@@ -83,8 +110,9 @@ public class BitTree {
         }
     }
   }
-  throw new Exception();
-}
+  return leaf.value;
+  //throw new Exception();
+} */
 
    public String get (String bits) throws Exception {
     if (bits.length() != 6){
@@ -96,34 +124,44 @@ public class BitTree {
   /**
    * Dump a portion of the tree to some output location.
   */
- 
 
- 
-  void dumpHelper(PrintWriter pen, BitTreeNode node, String bits) {
-    if (node == null) {
-      pen.println("," + node.get(bits));
-    } else {
-      if (node.isLeaf()){
-        // i don't think this should be indent but we'll see
-        pen.println(node.get(bits));
-        //dumpHelper(pen, node.right, indent + "");
+  // had string ""
+  
+  void dumpHelper(PrintWriter pen, BitTreeNode node, String bits, int i) {
+    BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
+    //pen.println(bits + "," + node.get(bits));
+    if ((innerNode.right == null) && (innerNode.left == null)) {
+      try {
+        pen.println(get(bits));
+        //"," + get(bits));
+        return;
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-      dumpHelper(pen, node, bits);
-      } // if
-    } // if has children
+    } else {
+        pen.println((bits.charAt(i)));
+        if (bits.charAt(i) == '0'){
+          dumpHelper(pen, innerNode.left, bits, i++);
+        }
+        else if (bits.charAt(i) == '1'){
+          dumpHelper(pen, innerNode.right, bits, i++);
+        }
+      }
+    } // if
+  // if has children
 
 
 
 
   public void dump(PrintWriter pen) {
-    dumpHelper (pen, root, "");
+    dumpHelper (pen, root, "", 0);
   } // dump(PrintWriter)
 }
 
 
 
 
-   /* Scanner scanner = new Scanner (source);
+   /*  Scanner scanner = new Scanner (source);
     try {
     while (scanner.hasNext()){
       String newline =  scanner.nextLine();
@@ -132,19 +170,20 @@ public class BitTree {
    } 
   } catch (Exception e){
   }
-  scann
+  scan
+  */ 
 
 
-public void load (InputStream source){
-    Buffered Reader scanner = new BufferedReader(new InputStreamReader(source));
+/* public void load (InputStream source){
+    BufferedReader scanner = new BufferedReader(new InputStreamReader(source));
     String newline = reader.readLine();
-    while (scanner.hasNext){
+    while (newline  != null){
         String[] arr = newline.split("", 2);
-        set (arr[0], arr[1]);
+        this.set (arr[0], arr[1]);
         newline = reader.readLine();
     }
-   }
-   */
+    */
+   
 
 
 

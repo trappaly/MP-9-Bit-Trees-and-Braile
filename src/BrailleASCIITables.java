@@ -4,6 +4,9 @@ public class BrailleASCIITables {
 
 
   static String toBraille(char letter){
+    load
+
+    
 
     Scanner scanner = new Scanner (new filename ("ASCIIBraile.txt"));
 
