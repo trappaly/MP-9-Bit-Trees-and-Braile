@@ -1,4 +1,4 @@
 # MP-9-Bit-Trees-and-Braile
 
-helped: audrey, 
-worked with: medhashree 
+helped: audrey, simon
+worked with: medhashree, connor, candice  

@@ -1,6 +1,12 @@
 import java.io.InputStream;
 import java.io.PrintWriter;
 
+/*
+ * A subclass of BitTreeNode which represents the node pointers to a certain pathway within the tree 
+ *  @author Alyssa Trapp
+ */
+
+
 public class BitTreeInteriorNode implements BitTreeNode {
 
   

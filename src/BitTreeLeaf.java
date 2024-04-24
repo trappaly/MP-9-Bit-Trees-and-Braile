@@ -1,8 +1,12 @@
 import java.io.InputStream;
 import java.io.PrintWriter;
 
+/*
+ * A subclass of BitTreeNode which stores a value within the leaf
+ * @author Alyssa Trapp 
+ */
+
 public class BitTreeLeaf implements BitTreeNode {
-// goal: for left and right nodes to be null
 
   // +--------+------------------------------------------------------
   // | Fields |
@@ -14,7 +18,6 @@ public class BitTreeLeaf implements BitTreeNode {
   String value;
 
 public BitTreeLeaf (String value) {
-  //super(value, null, null);
   this.value = value;
 }
  // +--------------+------------------------------------------------
