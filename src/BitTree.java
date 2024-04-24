@@ -92,14 +92,13 @@ public class BitTree {
     }
     return getHelper(root, bits, -1);
    } // get (String)
-  }
 
   /**
    * Dump a portion of the tree to some output location.
   */
  
 
-  /*  does this also need an i
+ 
   void dumpHelper(PrintWriter pen, BitTreeNode node, String bits) {
     if (node == null) {
       pen.println("," + node.get(bits));
@@ -109,21 +108,17 @@ public class BitTree {
         pen.println(node.get(bits));
         //dumpHelper(pen, node.right, indent + "");
       }
-      dumpHelper(pen, node, bits, i++);
+      dumpHelper(pen, node, bits);
       } // if
     } // if has children
-  // TODO Auto-generated method stub
-  //throw new UnsupportedOperationException("Unimplemented method 'set'");
-}
 
-  /**
-   * @Override
 
-   * Dump the tree to some output location.
-   *
+
+
   public void dump(PrintWriter pen) {
     dumpHelper (pen, root, "");
   } // dump(PrintWriter)
+}
 
 
 
