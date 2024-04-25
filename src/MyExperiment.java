@@ -7,8 +7,7 @@ public class MyExperiment {
       pen.println("before");
       tree.set("100000", "A");
       pen.println("get   " + tree.get("100000"));
-      tree.get("100000");
-
+      //tree.get("100000");
       //tree.dump(pen);
       //pen.println("dump: ");
       //tree.dump(pen);

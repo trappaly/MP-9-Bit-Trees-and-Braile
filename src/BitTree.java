@@ -52,12 +52,14 @@ public class BitTree {
     }
     else {
      if (bits.charAt(i) == '0'){
-      if (node == null){
-      innerNode.left = setHelper (innerNode.left, bits, i + 1, value);
+      if (innerNode.left == null){
+      innerNode.left = new BitTreeInteriorNode(null); 
+      setHelper (innerNode.left, bits, i + 1, value);
       }
     }
     else if (bits.charAt(i) == '1') {
-      if (node == null){
+      if (innerNode.right == null){
+      innerNode.right = new BitTreeInteriorNode(null); 
       innerNode.right = setHelper (innerNode.right, bits, i + 1, value);
     }
   }
@@ -75,14 +77,15 @@ public class BitTree {
    } // set (String, String)
 
 
-   public String getHelper (BitTreeNode node, String bits, int i) throws Exception{
+   /*public String getHelper (BitTreeNode node, String bits, int i) throws Exception{
+// use instanceOf
     BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
-    BitTreeLeaf leaf = (BitTreeLeaf) node;
     if (node == null) {
       throw new Exception ("ran out of bits");
     }
     else {
       if (bits.length() == i){
+      BitTreeLeaf leaf = (BitTreeLeaf) node;
        return leaf.value;
       }
      else if (bits.charAt(i) == '0'){
@@ -92,11 +95,41 @@ public class BitTree {
       return getHelper (innerNode.right, bits, i++);
      }
     }
-  }
+  }*/
 
 
+  public String getHelper (BitTreeNode node, String bits, int i) throws Exception{
+    // use instanceOf
+        BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
+        if (node == null) {
+          throw new Exception ("ran out of bits");
+        }
+        else {
+          if (node instanceof BitTreeLeaf){
+            return "";
+          }
+          else if (node instanceof BitTreeInteriorNode){
+        if (bits.charAt(i) == '0'){
+          return getHelper (innerNode.left, bits, i++);
+         }
+         else {
+          return getHelper (innerNode.right, bits, i++);
+         }
+        }
+  
+      }
+    }
 
-   /*  BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
+
+   public String get (String bits) throws Exception {
+    if (bits.length() != 6){
+      throw new Exception();
+    }
+    return getHelper(root, bits, 0);
+   } // get (String)
+
+
+ /*  BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
     BitTreeLeaf leaf = (BitTreeLeaf) node;
     if (node != null) {
     if (bits.length() == i) {
@@ -116,12 +149,6 @@ public class BitTree {
   //throw new Exception();
 } */
 
-   public String get (String bits) throws Exception {
-    if (bits.length() != 6){
-      throw new Exception();
-    }
-    return getHelper(root, bits, 0);
-   } // get (String)
 
   /**
    * Dump a portion of the tree to some output location.
