@@ -61,10 +61,8 @@ public class BitTreeExperiment {
     get(fourBits, "000x", "");
     get(fourBits, "00001", "");
     get(fourBits, null, "");
-  }
 
     // Change some values
-    /* 
     pen.println("\nChanging some legal values\n");
     set(fourBits, "0000", "0");
     set(fourBits, "0010", "2");
@@ -76,7 +74,7 @@ public class BitTreeExperiment {
 
     // Import a few more values
     pen.println("\nLoading some values\n");
-    load(fourBits, new StringInputStream(table));
+    //load(fourBits, new StringInputStream(table));
 
     // Get some legal values
     pen.println("\nGetting new values\n");
@@ -89,9 +87,7 @@ public class BitTreeExperiment {
     // Try dumping
     pen.println("\nDumping\n");
     dump(fourBits, table);
-    */
-  // main(String[])
-  
+  } // main(String[])
 
   // +---------+-----------------------------------------------------
   // | Helpers |
@@ -150,17 +146,16 @@ public class BitTreeExperiment {
   /**
    * Load the table.
    */
- /* static void load(BitTree bt, InputStream source) {
+  static void load(BitTree bt, InputStream source) {
     pen.print("load(...) ... ");
     pen.flush();
     try {
-      bt.load(source);
+      //bt.load(source);
       pen.println("OK");
     } catch (Exception e) {
       pen.println("FAILED because " + e.toString());
     } // try/catch
   } // load(InputStream)
-*/
 
   /**
    * Set a value in the tree. Report success/filure.

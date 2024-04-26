@@ -36,18 +36,10 @@ public class BitTreeInteriorNode implements BitTreeNode {
   // | Constructors |
   // +--------------+
 
-  public BitTreeInteriorNode (String value, BitTreeNode left, BitTreeNode right) {
-    this.value = value;
+  public BitTreeInteriorNode (BitTreeNode left, BitTreeNode right) {
     this.left = left;
     this.right = right;
   } // BitTreeNode(T, BinaryTreeNode, BinaryTreeNode)
-
-  public BitTreeInteriorNode (String value) {
-    this.value = value;
-    this.left = null;
-    this.right = null;
-  } // BitTreeNode(T, BinaryTreeNode, BinaryTreeNode)
-  
 
 
 
