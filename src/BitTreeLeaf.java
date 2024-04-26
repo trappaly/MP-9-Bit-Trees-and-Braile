@@ -17,46 +17,38 @@ public class BitTreeLeaf implements BitTreeNode {
    */
   String value;
 
-public BitTreeLeaf (String value) {
-  this.value = value;
-}
- // +--------------+------------------------------------------------
+  /*
+   * Constructor for BitTreeLeaf
+   */
+
+  public BitTreeLeaf(String value) {
+    this.value = value;
+  } // BitTreeLeaf (String)
+  // +--------------+------------------------------------------------
   // | Methods |
   // +--------------+
 
-public String getLeaf(){
-  return this.value;
-}
+  // +--------------+------------------------------------------------
+  // | Methods |
+  // +--------------+
 
-public boolean isLeaf(){
-  return true;
-}
+  @Override
+  public void set(String bits, String value) {
+    throw new UnsupportedOperationException("Unimplemented method 'set'");
+  } // set (String, String)
 
+  @Override
+  public String get(String bits) {
+    throw new UnsupportedOperationException("Unimplemented method 'get'");
+  } // get (String)
 
+  @Override
+  public void dump(PrintWriter pen) {
+    throw new UnsupportedOperationException("Unimplemented method 'dump'");
+  } // dump (pen)
 
-
-@Override
-public void set(String bits, String value) {
-
-  // TODO Auto-generated method stub
-  //throw new UnsupportedOperationException("Unimplemented method 'set'");
-}
-
-@Override
-public String get(String bits) {
-  // TODO Auto-generated method stub
-  throw new UnsupportedOperationException("Unimplemented method 'get'");
-}
-
-@Override
-public void dump(PrintWriter pen) {
-  // TODO Auto-generated method stub
-  throw new UnsupportedOperationException("Unimplemented method 'dump'");
-}
-
-@Override
-public void load(InputStream source) {
-  // TODO Auto-generated method stub
-  throw new UnsupportedOperationException("Unimplemented method 'load'");
-}
-}
+  @Override
+  public void load(InputStream source) {
+    throw new UnsupportedOperationException("Unimplemented method 'load'");
+  } // load (source)
+} // class BitTreeLeaf

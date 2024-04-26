@@ -2,53 +2,75 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.PrintWriter;
+/*
+ * Performs conversion for ASCII, Braille, and Unicode
+ * @author: Alyssa Trapp
+ */
 
 public class BrailleASCIITables {
+  // +--------+------------------------------------------------------
+  // | Fields |
+  // +--------+
 
-// pathway to load
+  /*
+   * Stores ASCII to Braille tree
+   */
+  BitTree ASCIIBraille;
 
+  /*
+   * Stores Braille to ASCII tree
+   */
+  BitTree BrailleASCII;
 
-BitTree ASCIIBraille;
-BitTree BrailleASCII;
-BitTree BrailleUnicode;
+  /*
+   * Stores Braille to Unicode tree
+   */
+  BitTree BrailleUnicode;
 
-
-// put pathway inside of load 
-
+  /*
+   * BrailleASCIITables constructor
+   */
   BrailleASCIITables() {
-    ASCIIBraille = new BitTree(8);
+    // try/catch
     try {
-    ASCIIBraille.load(new FileInputStream(new File ("../ASCIIBraile.txt")));
-    //csc207/mps/mp9/MP9-Bits-Trees-and_Braille/ASCIIBraile.txt")));
-    BrailleASCII = new BitTree(6);
-    BrailleASCII.load(new FileInputStream(new File ("../BrailleASCII.txt")));
-    //"csc207/mps/mp9/MP9-Bits-Trees-and_Braille/BrailleASCII.txt"
-    BrailleUnicode = new BitTree(6);
-    // csc207/mps/mp9/MP9-Bits-Trees-and_Braille/BrailleUnicode.txt
-    BrailleUnicode.load((new FileInputStream(new File ("../BrailleUnicode.txt")))); 
-    } catch (FileNotFoundException e){
-      System.out.println("error");
-    }
-  }
+      // initializes ASCIIBraille tree to a size of 8
+      ASCIIBraille = new BitTree(8);
+      // loads the ASCIIBraille.txt file
+      ASCIIBraille.load(new FileInputStream(new File("../ASCIIBraile.txt")));
+      // initializes ASCIIBraille tree to a size of 6
+      BrailleASCII = new BitTree(6);
+      // loads the BrailleASCII.txt file
+      BrailleASCII.load(new FileInputStream(new File("../BrailleASCII.txt")));
+      // initializes ASCIIBraille tree to a size of 6
+      BrailleUnicode = new BitTree(6);
+      // loads the BrailleUnicode.txt file
+      BrailleUnicode.load((new FileInputStream(new File("../BrailleUnicode.txt"))));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      ;
+    } // catch
+  } // BrailleASCIITables()
 
-  // check if tree is null, then load 
-
-  PrintWriter pen = new PrintWriter (System.out, true);
-
-
-
-  String toBraille(char letter){
+  /*
+   * Converts a character from ASCII to Braille
+   */
+  String toBraille(char letter) {
     return Integer.toBinaryString(Character.valueOf(letter));
-  }
+  } // toBraille (letter)
 
-  String toASCII (String bits) throws Exception{
+  /*
+   * Converts a character from Braille to ASCII
+   */
+
+  String toASCII(String bits) throws Exception {
     return BrailleASCII.get(bits);
-  }
+  } // toASCII (bits)
 
-// maybe 
+  /*
+   * Converts a character from Braille to Unicode
+   */
 
-  String toUnicode (String bits) throws Exception {
-    return BrailleUnicode.get(bits); 
-  }
-  
-}
+  String toUnicode(String bits) throws Exception {
+    return BrailleUnicode.get(bits);
+  } // toUnicode (String)
+} // class BrailleASCIITables

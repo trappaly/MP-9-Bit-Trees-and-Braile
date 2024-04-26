@@ -1,15 +1,7 @@
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.EmptyStackException;
-import java.util.Iterator;
-import java.util.Scanner;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.Object;
-import java.io.Reader;
-//import java.io.Reader;
 
 /**
  * A bit tree that makes a bit tree with n levels
@@ -48,268 +40,164 @@ public class BitTree {
   // | Methods |
   // +---------+
 
+  /*
+   * Does recursion for set
+   */
+
   public BitTreeNode setHelper(BitTreeNode node, String bits, int i, String value) {
+    // If the index is equal to the length of the string, this means we're at a leaf, so return the value at the leaf
     if (i == bits.length()) {
       return new BitTreeLeaf(value);
-    } else {
+    }
+  // Otherwise we know we are at an inner node, so we want to cast it to be an inner node 
+  else {
       BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
+      // If node is null, we want to create a new interior node
       if (node == null) {
         innerNode = new BitTreeInteriorNode(null, null);
       }
+      // If the character at the current index value is equal to 0 
       if (bits.charAt(i) == '0') {
+        // If the left inner node is equal to null, we want to set innerNode.left to setHelper and recursively call the function 
         if (innerNode.left == null) {
           innerNode.left = setHelper(innerNode.left, bits, i + 1, value);
-        }
+        } // if  
+        // Otherwise we just want to recursively call setHelper
         else {
-        setHelper(innerNode.left, bits, i + 1, value);
-      }
-    } 
+          setHelper(innerNode.left, bits, i + 1, value);
+        } // else
+      } // if  
+      // If the character at the current index value is equal to 1
       else if (bits.charAt(i) == '1') {
-        if (innerNode.right == null) {
-        // innerNode.right = new BitTreeInteriorNode(null);
-        innerNode.right = setHelper(innerNode.right, bits, i + 1, value);
-        // }
-      }
-      else{
+        // If the right inner node is equal to null, want to set innerNode.right to setHelper and recursively call the function
+          if (innerNode.right == null) {
+          innerNode.right = setHelper(innerNode.right, bits, i + 1, value);
+          } // if
+        // Otherwise we want to recursively call the function   
+         else {
           setHelper(innerNode.right, bits, i + 1, value);
-      }
-    }
-      // System.out.println("innerNode" + innerNode);
+        } // else
+      } // else if
+      // returns innerNode
       return innerNode;
-  }
-}
+    } // else 
+  } // setHelper(BitTreeNode, String, int, String)
 
+  /*
+   * Sets the bits value to the string value
+   */
+  
   public void set(String bits, String value) throws Exception {
+    // if the length of the bits doesn't contain 0 or 1 and length of the bits isn't equal to size, then throw exception
     if (((!bits.contains("0")) || (!bits.contains("1"))) && bits.length() != size) {
       throw new Exception();
     } // if
     setHelper(root, bits, 0, value);
   } // set (String, String)
 
-  // node
-
+  /*
+   * Does recursion for get
+   */
   public String getHelper(BitTreeNode node, String bits, int i) throws Exception {
-     if (node == null){
+    // if node is equal to null, throw an exception 
+    if (node == null) {
       throw new Exception();
-      //return "boo";
-     }
-    // throw new Exception();
-    // }
+    } // if
+    // if node is a leaf, cast it as a leaf
     if (node instanceof BitTreeLeaf) {
       BitTreeLeaf leaf = (BitTreeLeaf) node;
+    // return the value at the leaf and recursively call getHelper again  
       return leaf.value + getHelper(root, bits, i);
-    }
-    else if (bits.length() == i){
+    } // if  
+    // if the length of the bits is equal to i, this means it's at the end and there's no value, so we return empty string
+    else if (bits.length() == i) {
       return "";
-    }
-    else {
+    } // else if 
+     else {
+      // if node is not a leaf, cast it as an interior node 
       BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
+      // if the character at the index is equal to 0, recursively call getHelper on the left node
       if (bits.charAt(i) == '0') {
         return getHelper(innerNode.left, bits, i + 1);
-      } else if (bits.charAt(i) == '1') {
+      } // if 
+      else if (bits.charAt(i) == '1') {
+        // if the character at the index is equal to 1, recursively call getHelper on the right node
         return getHelper(innerNode.right, bits, i + 1);
-      }
-    }
+      } // else if 
+    } // else 
     throw new Exception();
-  }
-  /*
-   * public String getHelper(BitTreeNode node, String bits, int i) throws
-   * Exception {
-   * BitTreeLeaf leaf = (BitTreeLeaf) node;
-   * if (node instanceof BitTreeInteriorNode) {
-   * // use instanceOf
-   * BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
-   * //if (node == null) {
-   * //throw new Exception("ran out of bits");
-   * //} else {
-   * if ((innerNode.left == null) && (innerNode.right == null)) {
-   * //BitTreeLeaf leaf = (BitTreeLeaf) node;
-   * return leaf.getLeaf();
-   * } else if (bits.charAt(i) == '0') {
-   * return getHelper(innerNode.left, bits, i++);
-   * } else {
-   * return getHelper(innerNode.right, bits, i++);
-   * }
-   * }
-   * else if (node instanceof BitTreeLeaf){
-   * return leaf.value;
-   * }
-   * return "I don't know what to return here";
-   * }
-   */
+  } // getHelper(BitTreeNode, String, int)
 
+
+  /*
+   * Gets the current value at the string 
+   */
   public String get(String bits) throws Exception {
+    // if the bit string doesn't contain 0 or 1 and the length isn't equal to the size, then it's invalid, so throw an exception
     if (((!bits.contains("0")) || (!bits.contains("1"))) && bits.length() != size) {
       throw new Exception();
     } // if
     return getHelper(root, bits, 0);
-    }
-    //for (int i = 0; i < ; i += 6){
-      //if (i + 6 > bits.length()){
+  } // get (String)
 
-      //}
-      //bits.substring(i, i + 6);
-    //}
-    // get (String)
+
 
   /*
-   * BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
-   * BitTreeLeaf leaf = (BitTreeLeaf) node;
-   * if (node != null) {
-   * if (bits.length() == i) {
-   * return leaf.value;
-   * }
-   * else {
-   * i++;
-   * if (bits.charAt(i) == '0'){
-   * return getHelper (innerNode.left, bits, i);
-   * }
-   * else if (bits.charAt(i) == '1'){
-   * return getHelper (innerNode.right, bits, i);
-   * }
-   * }
-   * }
-   * return leaf.value;
-   * //throw new Exception();
-   * }
-   */
-
-  /**
-   * Dump a portion of the tree to some output location.
-   */
-
-  // had string ""
-
-  /*
-   * void dumpHelper(PrintWriter pen, BitTreeNode node, String bits, int i) {
-   * // pen.println(bits + "," + node.get(bits));
-   * if (node instanceof BitTreeLeaf) {
-   * try {
-   * pen.println(get(bits));
-   * // "," + get(bits));
-   * return;
-   * } catch (Exception e) {
-   * e.printStackTrace();
-   * }
-   * }
-   * else {
-   * pen.println((bits.charAt(i)));
-   * if (bits.charAt(i) == '0') {
-   * dumpHelper(pen, innerNode.left, bits, i++);
-   * } else if (bits.charAt(i) == '1') {
-   * dumpHelper(pen, innerNode.right, bits, i++);
-   * }
-   * }
-   * } // if
-   * // if has children
+   * Does recursion for dump 
    */
   public void dumpHelper(PrintWriter pen, BitTreeNode node, String bits) throws Exception {
+    // if node is equal to null, we want to return 
     if (node == null) {
       return;
-    } else if (node instanceof BitTreeLeaf) {
+    } // if
+    // if node is a BitTreeLeaf type, print the bits and the value at the bits  
+    else if (node instanceof BitTreeLeaf) {
       pen.println(bits + "," + get(bits));
-    } else {
+    } // else if  
+    else {
+      // if it is not a leaf, we can cast the node to an interior node
       BitTreeInteriorNode innerNode = (BitTreeInteriorNode) node;
-        dumpHelper(pen, innerNode.left, bits + "0");
-        dumpHelper(pen, innerNode.right, bits + "1");
-      }
-    }
+      // recursively calls dumpHelper on the left node and adds 0 to the string
+      dumpHelper(pen, innerNode.left, bits + "0");
+      // recursively calls dumpHelper on the right node and adds 1 to the string 
+      dumpHelper(pen, innerNode.right, bits + "1");
+    } // else 
+  } // dumpHelper (pen, node, bits)
 
+
+
+  /*
+   * Prints out the bit string with the value at the bit string as well 
+   */
   public void dump(PrintWriter pen) {
-    BitTreeInteriorNode temproot = (BitTreeInteriorNode) root;
-    try {
+  // has a try/catch to handle exceptions and calls dumpHelper  
+  try {
       dumpHelper(pen, root, "");
     } catch (Exception e) {
-
-    }
+      e.printStackTrace();
+    } // catch 
   } // dump(PrintWriter)
 
-
-
-public void load (InputStream source){
-   BufferedReader reader = new BufferedReader(new InputStreamReader(source));
-   try {
-    String newline = reader.readLine();
-    while (newline != null){
-    String[] arr = newline.split(",", 2);
-    this.set (arr[0], arr[1]);
-     newline = reader.readLine();
-    }
-  } catch (Exception e){
-  }
-}
-}
-
-
-
-// I want to think this is rt, not entirely sure 
-  /* public void load(InputStream source){
-    Scanner scanner = new Scanner(new InputStreamReader (source));
-    while (scanner.hasNext()){
-      String newline = scanner.nextLine();
-      String[] arr = newline.split("", 2);
-      try {
-      set(arr[0], arr[1]);
-    } catch(Exception e){
-
-    }
-  }
-  scanner.close();
-}
-}
-*/
-  /*public void load(InputStream source) {
-    BufferedReader scanner = new BufferedReader(new InputStreamReader(source));
-    String newline = reader.readLine();
-    while (newline != null) {
-      String[] arr = newline.split("", 2);
-      this.set(arr[0], arr[1]);
-      newline = reader.readLine();
-    }
-  }
-}*/
-
-/*
- * Scanner scanner = new Scanner (source);
- * try {
- * while (scanner.hasNext()){
- * String newline = scanner.nextLine();
- * String[] arr = newline.split("", 2);
- * set (arr[0], arr[1]);
- * }
- * } catch (Exception e){
- * }
- * scan
- */
-
-/*
- * public void load (InputStream source){
- * BufferedReader scanner = new BufferedReader(new InputStreamReader(source));
- * String newline = reader.readLine();
- * while (newline != null){
- * String[] arr = newline.split("", 2);
- * this.set (arr[0], arr[1]);
- * newline = reader.readLine();
- * }
- */
-
-// +---------+-----------------------------------------------------
-// | Helpers |
-// +---------+
-
-/**
- * Dump a portion of the tree to some output location.
- */
-/*
- * void dump(PrintWriter pen, BitTreeNode<T> node, String indent) {
- * if (node == null) {
- * pen.println(indent + "<>");
- * } else {
- * pen.println(indent + node.value);
- * if ((node.left != null) || (node.right != null)) {
- * dump(pen, node.left, indent + "  ");
- * dump(pen, node.right, indent + "  ");
- * } // if has children
- * } // else
- * } // dump
- */
+  /*
+   * Loads a file based on the source given into it
+   */
+  public void load(InputStream source) {
+    // reads in the file
+    BufferedReader reader = new BufferedReader(new InputStreamReader(source));
+    try {
+      // stores a line in newline when reading a file 
+      String newline = reader.readLine();
+      // loops over each line of the file while newline is not equal to null
+      while (newline != null) {
+        // splits the array on the newline by the comma
+        String[] arr = newline.split(",", 2);
+        // sets arr[0] which represents everything that comes before the comma to arr[1] which represents everything that comes after the comma
+        this.set(arr[0], arr[1]);
+        // reads each newline by each line
+        newline = reader.readLine();
+      } // while 
+    } catch (Exception e) {
+      e.printStackTrace();
+    } // catch 
+  } // load (InputStream)
+} // class BitTree
