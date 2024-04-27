@@ -47,7 +47,6 @@ public class BrailleASCIITables {
       BrailleUnicode.load((new FileInputStream(new File("../BrailleUnicode.txt"))));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
-      ;
     } // catch
   } // BrailleASCIITables()
 
@@ -70,7 +69,15 @@ public class BrailleASCIITables {
    * Converts a character from Braille to Unicode
    */
 
-  String toUnicode(String bits) throws Exception {
+   /*String toUnicode(String bits) throws Exception{
     return BrailleUnicode.get(bits);
+   }
+   */
+
+  String toUnicode(String bits) throws Exception {
+    for (int i = 0; i < bits.length(); i++ ){
+       bits = toBraille(bits.charAt(i));
+    }
+    return bits;
   } // toUnicode (String)
 } // class BrailleASCIITables

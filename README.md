@@ -1,8 +1,8 @@
 # MP-9-Bit-Trees-and-Braile
-Due: Wednesday April 26, 2024 
+Due: Wednesday April 24, 2024 
 
 Acknowledgements: The online resources I used for this project are the bit tree reading, Eboard 35, and the JavaOracle documentation for conversions. 
-I discussed ideas about the project with classmates Medhashree Adhikari, Connor Heagy, and Candice Lu. I got help from the tutors: Jayson, Audrey, Simon, and Boston. I also recieved help form Professor Rebelskey. 
+I discussed ideas about the project with classmates: Medhashree Adhikari, Connor Heagy, and Candice Lu. I got help from the tutors: Jayson, Audrey, Simon, and Boston. I also recieved help form Professor Rebelskey. 
 
 Short Description: The BrailleASCII file converts to braille, ascii, or unicode depending on the inputs given in the command line. It converts based on the initial bit tree structures. The user types in a type they want the input to convert to for the first command argument and the input of what they want to convert as the second input. 
 

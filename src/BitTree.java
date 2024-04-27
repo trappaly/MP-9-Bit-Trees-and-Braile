@@ -103,6 +103,7 @@ public class BitTree {
     if (node == null) {
       throw new Exception();
     } // if
+    else {
     // if node is a leaf, cast it as a leaf
     if (node instanceof BitTreeLeaf) {
       BitTreeLeaf leaf = (BitTreeLeaf) node;
@@ -125,6 +126,7 @@ public class BitTree {
         return getHelper(innerNode.right, bits, i + 1);
       } // else if 
     } // else 
+  }
     throw new Exception();
   } // getHelper(BitTreeNode, String, int)
 
@@ -134,9 +136,9 @@ public class BitTree {
    */
   public String get(String bits) throws Exception {
     // if the bit string doesn't contain 0 or 1 and the length isn't equal to the size, then it's invalid, so throw an exception
-    if (((!bits.contains("0")) || (!bits.contains("1"))) && bits.length() != size) {
-      throw new Exception();
-    } // if
+    //if (((!bits.contains("0")) || (!bits.contains("1"))) && bits.length() != size) {
+      //throw new Exception();
+    //} // if
     return getHelper(root, bits, 0);
   } // get (String)
 

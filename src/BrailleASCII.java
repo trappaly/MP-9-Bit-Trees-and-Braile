@@ -26,14 +26,14 @@ public class BrailleASCII {
     else if ((args[0]).equals("unicode")){
       //convert it to braille instead of pass in hello
       // problem: thinks it is ascii, 
-      for (int i = 0; i < args[i].length(); i++){
-        pen.println (table.toUnicode(table.toBraille(args[1].charAt(i))));
+     pen.println(table.toUnicode(args[1]));
       } // for
-     } // else if  
+      // else if  
     else {
       throw new Exception();
     } // else
     // prints the final string
     pen.println(str);
-  } // main 
-} // BrailleASCII class 
+  }
+ } // main 
+// BrailleASCII class 
